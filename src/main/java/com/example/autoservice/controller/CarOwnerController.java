@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/car_owners")
+@RequestMapping("/car-owners")
 @RequiredArgsConstructor
 public class CarOwnerController {
     private final CarOwnerService carOwnerService;
     private final CarOwnerMapper mapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public CarOwnerResponseDto create(@RequestBody
                                       CarOwnerRequestDto carOwnerRequestDto) {
         return mapper.mapToResponse(
@@ -35,7 +35,7 @@ public class CarOwnerController {
         return carOwnerService.update(carOwnerId, null);
     }
 
-    @GetMapping("/total_price/{carOwnerId}")
+    @GetMapping("/total-price/{carOwnerId}")
     public Double getTotalPrice(@PathVariable Long carOwnerId) {
         return carOwnerService.getTotalPrice(carOwnerId);
     }

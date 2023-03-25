@@ -25,7 +25,7 @@ public class MasterController {
     private final MasterMapper mapper;
     private final OrderMapper orderMapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public MasterResponseDto crete(@RequestBody MasterRequestDto masterRequestDto) {
         return mapper.mapToResponse(
                 masterService.create(

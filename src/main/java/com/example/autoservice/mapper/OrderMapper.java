@@ -9,6 +9,7 @@ import com.example.autoservice.model.dto.response.OrderResponseDto;
 import com.example.autoservice.service.CarService;
 import com.example.autoservice.service.ProductService;
 import com.example.autoservice.service.TaskService;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
@@ -28,8 +29,10 @@ public class OrderMapper implements RequestMapper<Order, OrderRequestDto>,
         List<Task> tasksById = taskService.findByIdIn(dto.getTasksId());
         List<Product> productsById = productService.findByIdIn(dto.getProductsId());
         Double price = DoubleStream.concat(
-                tasksById.stream().mapToDouble(Task::getPrice),
-                productsById.stream().mapToDouble(Product::getPrice)
+                tasksById.stream().map(Task::getPrice)
+                        .mapToDouble(BigDecimal::doubleValue),
+                productsById.stream().map(Product::getPrice)
+                        .mapToDouble(BigDecimal::doubleValue)
         ).sum();
 
         return Order.builder()
@@ -40,7 +43,7 @@ public class OrderMapper implements RequestMapper<Order, OrderRequestDto>,
                 .dateCreated(dto.getDateCreated())
                 .dateCompleted(dto.getDateCompleted())
                 .tasks(tasksById)
-                .price(price)
+                .price(BigDecimal.valueOf(price))
                 .build();
     }
 

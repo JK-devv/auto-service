@@ -54,14 +54,14 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order changeStatus(Long orderId, String status) {
-        Order existed = findById(orderId);
-        existed.setOrderStatus(Status.valueOf(status));
-        return repository.save(existed);
+        Order existedOrder = findById(orderId);
+        existedOrder.setOrderStatus(Status.valueOf(status));
+        return repository.save(existedOrder);
     }
 
     @Override
     public Double getPrice(Long orderId) {
         Order existedOrder = findById(orderId);
-        return existedOrder.getPrice();
+        return existedOrder.getPrice().toBigInteger().doubleValue();
     }
 }

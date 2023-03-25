@@ -19,7 +19,7 @@ public class CarController {
     private final CarService carService;
     private final CarMapper mapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public CarResponseDto create(@RequestBody CarRequestsDto carRequestsDto) {
         return mapper.mapToResponse(
                 carService.create(

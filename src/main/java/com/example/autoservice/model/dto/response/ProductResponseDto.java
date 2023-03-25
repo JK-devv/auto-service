@@ -1,5 +1,6 @@
 package com.example.autoservice.model.dto.response;
 
+import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class ProductResponseDto {
     private Long id;
     private String name;
-    private Double price;
+    private BigDecimal price;
 }

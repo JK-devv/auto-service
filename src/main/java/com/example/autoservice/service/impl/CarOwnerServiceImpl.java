@@ -6,19 +6,17 @@ import com.example.autoservice.model.Product;
 import com.example.autoservice.model.Task;
 import com.example.autoservice.repository.CarOwnerRepository;
 import com.example.autoservice.service.CarOwnerService;
+import java.math.BigDecimal;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-
+@RequiredArgsConstructor
 public class CarOwnerServiceImpl implements CarOwnerService {
     private static final int PRODUCT_DISCOUNT = 1;
     private static final int TASK_DISCOUNT = 2;
     private final CarOwnerRepository repository;
-
-    public CarOwnerServiceImpl(CarOwnerRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public CarOwner create(CarOwner carOwnerRequest) {
@@ -48,18 +46,21 @@ public class CarOwnerServiceImpl implements CarOwnerService {
     public Double getTotalPrice(Long carOwnerId) {
         List<Order> orders = repository.getOrdersWithTasksAndProductByCarOwnerId(carOwnerId);
         Double ordersPrice = orders.stream()
-                .mapToDouble(Order::getPrice)
+                .map(Order::getPrice)
+                .mapToDouble(BigDecimal::doubleValue)
                 .sum();
         double productPriceSum = orders.stream()
                 .flatMap(order -> order.getProducts().stream())
-                .mapToDouble(Product::getPrice)
+                .map(Product::getPrice)
+                .mapToDouble(BigDecimal::doubleValue)
                 .sum();
 
         double productDiscount = (productPriceSum * (orders.size() * PRODUCT_DISCOUNT)) / 100;
 
         double taskPriceSum = orders.stream()
                 .flatMap(order -> order.getTasks().stream())
-                .mapToDouble(Task::getPrice)
+                .map(Task::getPrice)
+                .mapToDouble(BigDecimal::doubleValue)
                 .sum();
         double taskDiscount = (taskPriceSum * (orders.size() * TASK_DISCOUNT)) / 100;
         return ordersPrice - productDiscount - taskDiscount;

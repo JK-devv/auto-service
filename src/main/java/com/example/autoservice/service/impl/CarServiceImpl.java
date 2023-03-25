@@ -4,15 +4,13 @@ import com.example.autoservice.model.Car;
 import com.example.autoservice.repository.CarRepository;
 import com.example.autoservice.service.CarService;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CarServiceImpl implements CarService {
     private final CarRepository repository;
-
-    public CarServiceImpl(CarRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public Car findById(Long id) {

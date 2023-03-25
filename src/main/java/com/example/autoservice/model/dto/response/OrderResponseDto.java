@@ -1,5 +1,6 @@
 package com.example.autoservice.model.dto.response;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -20,6 +21,6 @@ public class OrderResponseDto {
     private List<Long> tasksId;
     private List<Long> productsId;
     private String status;
-    private Double price;
+    private BigDecimal price;
 
 }

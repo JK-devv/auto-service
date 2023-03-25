@@ -19,7 +19,7 @@ public class ProductController {
     private final ProductService productService;
     private final ProductMapper mapper;
 
-    @PostMapping("/create")
+    @PostMapping
     public ProductResponseDto create(@RequestBody ProductRequestDto productRequestDto) {
         return mapper.mapToResponse(
                 productService.create(

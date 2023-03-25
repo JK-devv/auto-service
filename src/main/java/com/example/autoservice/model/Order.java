@@ -11,6 +11,7 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -46,6 +47,6 @@ public class Order {
     private List<Product> products;
     @Enumerated(EnumType.STRING)
     private Status orderStatus;
-    private Double price;
+    private BigDecimal price;
 
 }
